@@ -1,5 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <color name="studymate_primary">#4F8CFF</color>
+    <color name="studymate_success">#34C759</color>
+    <color name="studymate_accent">#FFB74D</color>
+    <color name="studymate_error">#FF6B6B</color>
+
+    <color name="studymate_navy">#163A70</color>
+    <color name="studymate_background">#F7FAFF</color>
+    <color name="white">#FFFFFF</color>
 </resources>
