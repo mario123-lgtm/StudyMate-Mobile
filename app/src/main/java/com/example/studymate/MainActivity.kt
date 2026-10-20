@@ -4,13 +4,16 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Button
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.fragment.app.Fragment
+import com.example.studymate.home.HomeFragment
+import com.example.studymate.profile.ProfileFragment
+import com.example.studymate.tugas.TugasFragment
+import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
 
@@ -18,7 +21,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
 
         enableEdgeToEdge()
-        setContentView(R.layout.activity_dashboard)
+        setContentView(R.layout.activity_main)
 
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars =
@@ -28,30 +31,48 @@ class MainActivity : AppCompatActivity() {
                 systemBars.left,
                 systemBars.top,
                 systemBars.right,
-                systemBars.bottom
+                0
             )
 
             insets
         }
 
-        val toolbar =
-            findViewById<Toolbar>(R.id.toolbar)
+        val bottomNavView =
+            findViewById<BottomNavigationView>(R.id.bottom_nav_view)
 
-        setSupportActionBar(toolbar)
-
-        supportActionBar?.apply {
-            title = "Home Dashboard"
+        if (savedInstanceState == null) {
+            replaceFragment(HomeFragment())
         }
 
-        val btnDaftarTugas =
-            findViewById<Button>(R.id.btnDaftarTugas)
+        bottomNavView.setOnItemSelectedListener {
 
-        btnDaftarTugas.setOnClickListener {
-            val intent =
-                Intent(this, DaftarTugasActivity::class.java)
+            when (it.itemId) {
 
-            startActivity(intent)
+                R.id.nav_home -> {
+                    replaceFragment(HomeFragment())
+                    true
+                }
+
+                R.id.nav_tugas -> {
+                    replaceFragment(TugasFragment())
+                    true
+                }
+
+                R.id.nav_profile -> {
+                    replaceFragment(ProfileFragment())
+                    true
+                }
+
+                else -> false
+            }
         }
+    }
+
+    private fun replaceFragment(fragment: Fragment) {
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_container, fragment)
+            .commit()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -60,17 +81,23 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
+
         return when (item.itemId) {
 
             R.id.action_profile -> {
+
                 val intent =
-                    Intent(this, ProfileDeveloperActivity::class.java)
+                    Intent(
+                        this,
+                        ProfileDeveloperActivity::class.java
+                    )
 
                 startActivity(intent)
                 true
             }
 
             R.id.action_about -> {
+
                 AlertDialog.Builder(this)
                     .setTitle("Tentang StudyMate")
                     .setMessage(
@@ -104,7 +131,10 @@ class MainActivity : AppCompatActivity() {
                             .apply()
 
                         val intent =
-                            Intent(this, LoginActivity::class.java)
+                            Intent(
+                                this,
+                                LoginActivity::class.java
+                            )
 
                         intent.flags =
                             Intent.FLAG_ACTIVITY_NEW_TASK or
