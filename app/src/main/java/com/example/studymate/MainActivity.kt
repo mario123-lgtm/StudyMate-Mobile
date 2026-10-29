@@ -12,9 +12,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.fragment.app.Fragment
 import com.example.studymate.home.HomeFragment
 import com.example.studymate.profile.ProfileFragment
-import com.example.studymate.tugas.TugasFragment
+import com.example.studymate.profile.TugasFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
-
 class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

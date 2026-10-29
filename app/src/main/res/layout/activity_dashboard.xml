@@ -220,12 +220,12 @@
                 app:cornerRadius="14dp" />
 
             <Button
-                android:id="@+id/btnDaftarTugas"
+                android:id="@+id/btnPengingatDeadline"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
                 android:layout_marginTop="12dp"
                 android:backgroundTint="@color/studymate_success"
-                android:text="Daftar Tugas"
+                android:text="🔔 Pengingat Deadline"
                 android:textAllCaps="false"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"

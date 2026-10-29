@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/studymate_background"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="28dp">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Tambah Tugas"
+            android:textColor="@color/studymate_navy"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="6dp"
+            android:text="Masukkan informasi tugas kuliah"
+            android:textColor="#777777"
+            android:textSize="14sp" />
+
+        <EditText
+            android:id="@+id/inputJudulTugas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:hint="Judul Tugas"
+            android:inputType="textCapSentences" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:hint="Mata Kuliah"
+            app:endIconMode="dropdown_menu">
+
+            <AutoCompleteTextView
+                android:id="@+id/inputMataKuliah"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="none" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+        <EditText
+            android:id="@+id/inputDeadline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:clickable="true"
+            android:focusable="false"
+            android:hint="Pilih Deadline" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="Prioritas"
+            android:textColor="@color/studymate_navy"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <RadioGroup
+            android:id="@+id/radioPrioritas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RadioButton
+                android:id="@+id/radioTinggi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tinggi" />
+
+            <RadioButton
+                android:id="@+id/radioSedang"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sedang" />
+
+            <RadioButton
+                android:id="@+id/radioRendah"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rendah" />
+
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/btnSimpanTugas"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:layout_marginTop="30dp"
+            android:backgroundTint="@color/studymate_primary"
+            android:text="Simpan Tugas"
+            android:textAllCaps="false"
+            android:textColor="@android:color/white"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:cornerRadius="14dp" />
+
+    </LinearLayout>
+
+</ScrollView>

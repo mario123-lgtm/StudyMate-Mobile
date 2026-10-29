@@ -20,9 +20,14 @@ class DashboardActivity : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_dashboard)
 
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(
+            findViewById(R.id.main)
+        ) { v, insets ->
+
             val systemBars =
-                insets.getInsets(WindowInsetsCompat.Type.systemBars())
+                insets.getInsets(
+                    WindowInsetsCompat.Type.systemBars()
+                )
 
             v.setPadding(
                 systemBars.left,
@@ -45,47 +50,95 @@ class DashboardActivity : AppCompatActivity() {
             setDisplayShowHomeEnabled(true)
         }
 
-        val btnDaftarTugas =
-            findViewById<Button>(R.id.btnDaftarTugas)
+        // Tombol Tambah Tugas
+        val btnTambahTugas =
+            findViewById<Button>(
+                R.id.btnTambahTugas
+            )
 
-        btnDaftarTugas.setOnClickListener {
+        btnTambahTugas.setOnClickListener {
+
             val intent =
-                Intent(this, DaftarTugasActivity::class.java)
+                Intent(
+                    this,
+                    TambahTugasActivity::class.java
+                )
+
+            startActivity(intent)
+        }
+
+        // Tombol Pengingat Deadline
+        val btnPengingatDeadline =
+            findViewById<Button>(
+                R.id.btnPengingatDeadline
+            )
+
+        btnPengingatDeadline.setOnClickListener {
+
+            val intent =
+                Intent(
+                    this,
+                    ReminderDeadlineActivity::class.java
+                )
 
             startActivity(intent)
         }
     }
 
-    override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menuInflater.inflate(R.menu.dashboard_menu, menu)
+    override fun onCreateOptionsMenu(
+        menu: Menu
+    ): Boolean {
+
+        menuInflater.inflate(
+            R.menu.dashboard_menu,
+            menu
+        )
+
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+    override fun onOptionsItemSelected(
+        item: MenuItem
+    ): Boolean {
+
         return when (item.itemId) {
 
             android.R.id.home -> {
-                onBackPressedDispatcher.onBackPressed()
+
+                onBackPressedDispatcher
+                    .onBackPressed()
+
                 true
             }
 
             R.id.action_profile -> {
+
                 val intent =
-                    Intent(this, ProfileDeveloperActivity::class.java)
+                    Intent(
+                        this,
+                        ProfileDeveloperActivity::class.java
+                    )
 
                 startActivity(intent)
+
                 true
             }
 
             R.id.action_about -> {
+
                 AlertDialog.Builder(this)
-                    .setTitle("Tentang StudyMate")
+                    .setTitle(
+                        "Tentang StudyMate"
+                    )
                     .setMessage(
                         "StudyMate adalah aplikasi pengingat tugas kuliah " +
                                 "yang membantu mahasiswa mencatat tugas, " +
                                 "mengatur deadline, dan memantau tugas yang telah selesai."
                     )
-                    .setPositiveButton("OK", null)
+                    .setPositiveButton(
+                        "OK",
+                        null
+                    )
                     .show()
 
                 true
@@ -95,9 +148,16 @@ class DashboardActivity : AppCompatActivity() {
 
                 AlertDialog.Builder(this)
                     .setTitle("Logout")
-                    .setMessage("Apakah Anda yakin ingin keluar?")
-                    .setNegativeButton("Batal", null)
-                    .setPositiveButton("Keluar") { _, _ ->
+                    .setMessage(
+                        "Apakah Anda yakin ingin keluar?"
+                    )
+                    .setNegativeButton(
+                        "Batal",
+                        null
+                    )
+                    .setPositiveButton(
+                        "Keluar"
+                    ) { _, _ ->
 
                         val sharedPref =
                             getSharedPreferences(
@@ -106,18 +166,25 @@ class DashboardActivity : AppCompatActivity() {
                             )
 
                         sharedPref.edit()
-                            .putBoolean("isLogin", false)
+                            .putBoolean(
+                                "isLogin",
+                                false
+                            )
                             .remove("username")
                             .apply()
 
                         val intent =
-                            Intent(this, LoginActivity::class.java)
+                            Intent(
+                                this,
+                                LoginActivity::class.java
+                            )
 
                         intent.flags =
                             Intent.FLAG_ACTIVITY_NEW_TASK or
                                     Intent.FLAG_ACTIVITY_CLEAR_TASK
 
                         startActivity(intent)
+
                         finish()
                     }
                     .show()
@@ -125,7 +192,8 @@ class DashboardActivity : AppCompatActivity() {
                 true
             }
 
-            else -> super.onOptionsItemSelected(item)
+            else ->
+                super.onOptionsItemSelected(item)
         }
     }
 }

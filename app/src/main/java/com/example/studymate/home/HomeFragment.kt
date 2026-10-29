@@ -9,8 +9,9 @@ import android.widget.Button
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
-import com.example.studymate.DaftarTugasActivity
+import com.example.studymate.ReminderDeadlineActivity
 import com.example.studymate.R
+import com.example.studymate.TambahTugasActivity
 
 class HomeFragment : Fragment() {
 
@@ -19,6 +20,7 @@ class HomeFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+
         return inflater.inflate(
             R.layout.activity_dashboard,
             container,
@@ -30,30 +32,60 @@ class HomeFragment : Fragment() {
         view: View,
         savedInstanceState: Bundle?
     ) {
-        super.onViewCreated(view, savedInstanceState)
+
+        super.onViewCreated(
+            view,
+            savedInstanceState
+        )
 
         val toolbar =
-            view.findViewById<Toolbar>(R.id.toolbar)
+            view.findViewById<Toolbar>(
+                R.id.toolbar
+            )
 
         (requireActivity() as AppCompatActivity)
             .setSupportActionBar(toolbar)
 
         (requireActivity() as AppCompatActivity)
             .supportActionBar?.apply {
-                title = "Home Dashboard"
-                setDisplayHomeAsUpEnabled(false)
+
+                title =
+                    "Home Dashboard"
+
+                setDisplayHomeAsUpEnabled(
+                    false
+                )
             }
 
-        val btnDaftarTugas =
-            view.findViewById<Button>(R.id.btnDaftarTugas)
+        val btnTambahTugas =
+            view.findViewById<Button>(
+                R.id.btnTambahTugas
+            )
 
-        btnDaftarTugas.setOnClickListener {
-            startActivity(
+        val btnPengingatDeadline =
+            view.findViewById<Button>(
+                R.id.btnPengingatDeadline
+            )
+        btnTambahTugas.setOnClickListener {
+
+            val intent =
                 Intent(
                     requireContext(),
-                    DaftarTugasActivity::class.java
+                    TambahTugasActivity::class.java
                 )
-            )
+
+            startActivity(intent)
+        }
+
+        btnPengingatDeadline.setOnClickListener {
+
+            val intent =
+                Intent(
+                    requireContext(),
+                    ReminderDeadlineActivity::class.java
+                )
+
+            startActivity(intent)
         }
     }
 }
