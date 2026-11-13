@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.example.studymate.onboarding.OnboardingActivity
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
@@ -95,6 +96,30 @@ class SplashScreenActivity : AppCompatActivity() {
 
             delay(2200)
 
+            // Cek apakah onboarding sudah pernah selesai
+            val onboardingDone =
+                sharedPref.getBoolean(
+                    "onboarding_done",
+                    false
+                )
+
+            // Jika belum, buka onboarding terlebih dahulu
+            if (!onboardingDone) {
+
+                val intent =
+                    Intent(
+                        this@SplashScreenActivity,
+                        OnboardingActivity::class.java
+                    )
+
+                startActivity(intent)
+                finish()
+
+                return@launch
+            }
+
+            // Jika onboarding sudah selesai,
+            // cek apakah user sudah login
             val isLogin =
                 sharedPref.getBoolean(
                     "isLogin",
@@ -118,7 +143,6 @@ class SplashScreenActivity : AppCompatActivity() {
                 }
 
             startActivity(intent)
-
             finish()
         }
     }
