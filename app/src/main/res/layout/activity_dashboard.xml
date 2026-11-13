@@ -7,7 +7,7 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/studymate_background"
+    android:background="@drawable/bg_home_studymate"
     tools:context=".DashboardActivity">
 
     <com.google.android.material.appbar.AppBarLayout
@@ -52,18 +52,20 @@
                 android:textColor="#666666"
                 android:textSize="14sp" />
 
-            <LinearLayout
+            <!-- GRID RINGKASAN -->
+            <GridLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:orientation="horizontal"
-                android:weightSum="2">
+                android:columnCount="2"
+                android:rowCount="2">
 
+                <!-- Tugas Hari Ini -->
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
                     android:layout_height="120dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:layout_columnWeight="1"
                     app:cardBackgroundColor="#E8F1FF"
                     app:cardCornerRadius="18dp"
                     app:cardElevation="0dp">
@@ -93,11 +95,12 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
+                <!-- Deadline Terdekat -->
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
                     android:layout_height="120dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:layout_columnWeight="1"
                     app:cardBackgroundColor="#FFF0F0"
                     app:cardCornerRadius="18dp"
                     app:cardElevation="0dp">
@@ -127,20 +130,12 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
+                <!-- Tugas Selesai -->
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
                     android:layout_height="120dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:layout_columnWeight="1"
                     app:cardBackgroundColor="#E9F9EF"
                     app:cardCornerRadius="18dp"
                     app:cardElevation="0dp">
@@ -170,11 +165,12 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
+                <!-- Belum Selesai -->
                 <com.google.android.material.card.MaterialCardView
                     android:layout_width="0dp"
                     android:layout_height="120dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_weight="1"
+                    android:layout_margin="8dp"
+                    android:layout_columnWeight="1"
                     app:cardBackgroundColor="#F2EAFE"
                     app:cardCornerRadius="18dp"
                     app:cardElevation="0dp">
@@ -204,7 +200,7 @@
 
                 </com.google.android.material.card.MaterialCardView>
 
-            </LinearLayout>
+            </GridLayout>
 
             <Button
                 android:id="@+id/btnTambahTugas"
@@ -241,6 +237,7 @@
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
+            <!-- Tugas 1 -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -274,6 +271,7 @@
 
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- Tugas 2 -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -307,6 +305,7 @@
 
             </com.google.android.material.card.MaterialCardView>
 
+            <!-- Tugas 3 -->
             <com.google.android.material.card.MaterialCardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
