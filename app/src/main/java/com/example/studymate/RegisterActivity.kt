@@ -6,14 +6,18 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.RadioGroup
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import com.example.studymate.data.api.SupabaseApiClient
+import com.example.studymate.data.model.UserModel
+import kotlinx.coroutines.launch
 import java.util.Calendar
 
 class RegisterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         setContentView(R.layout.activity_register)
 
         val inputNama =
@@ -42,8 +46,7 @@ class RegisterActivity : AppCompatActivity() {
 
         inputTanggalLahir.setOnClickListener {
 
-            val calendar =
-                Calendar.getInstance()
+            val calendar = Calendar.getInstance()
 
             val tahun =
                 calendar.get(Calendar.YEAR)
@@ -102,32 +105,129 @@ class RegisterActivity : AppCompatActivity() {
                         ""
                 }
 
-            val sharedPref =
-                getSharedPreferences(
-                    "studymate_register_pref",
-                    MODE_PRIVATE
-                )
+            if (
+                nama.isEmpty() ||
+                email.isEmpty() ||
+                tanggalLahir.isEmpty() ||
+                jenisKelamin.isEmpty() ||
+                username.isEmpty() ||
+                password.isEmpty() ||
+                confirmPassword.isEmpty()
+            ) {
 
-            sharedPref.edit()
-                .putString("nama", nama)
-                .putString("email", email)
-                .putString("tanggal_lahir", tanggalLahir)
-                .putString("jenis_kelamin", jenisKelamin)
-                .putString("username", username)
-                .putString("password", password)
-                .putString(
-                    "confirm_password",
-                    confirmPassword
-                )
-                .apply()
-
-            val intent =
-                Intent(
+                Toast.makeText(
                     this,
-                    VerificationActivity::class.java
-                )
+                    "Semua data harus diisi",
+                    Toast.LENGTH_SHORT
+                ).show()
 
-            startActivity(intent)
+                return@setOnClickListener
+            }
+
+            if (password != confirmPassword) {
+
+                Toast.makeText(
+                    this,
+                    "Konfirmasi password tidak sama",
+                    Toast.LENGTH_SHORT
+                ).show()
+
+                return@setOnClickListener
+            }
+
+            val user = UserModel(
+                nama = nama,
+                email = email,
+                password = password
+            )
+
+            lifecycleScope.launch {
+
+                try {
+
+                    val response =
+                        SupabaseApiClient.apiService.registerUser(
+                            SupabaseApiClient.API_KEY,
+                            user
+                        )
+
+                    if (response.isSuccessful) {
+
+                        val sharedPref =
+                            getSharedPreferences(
+                                "studymate_register_pref",
+                                MODE_PRIVATE
+                            )
+
+                        sharedPref.edit()
+                            .putString("nama", nama)
+                            .putString("email", email)
+                            .putString(
+                                "tanggal_lahir",
+                                tanggalLahir
+                            )
+                            .putString(
+                                "jenis_kelamin",
+                                jenisKelamin
+                            )
+                            .putString(
+                                "username",
+                                username
+                            )
+                            .putString(
+                                "password",
+                                password
+                            )
+                            .putString(
+                                "confirm_password",
+                                confirmPassword
+                            )
+                            .apply()
+
+                        Toast.makeText(
+                            this@RegisterActivity,
+                            "Registrasi berhasil",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
+                        val intent =
+                            Intent(
+                                this@RegisterActivity,
+                                VerificationActivity::class.java
+                            )
+
+                        startActivity(intent)
+
+                    } else {
+
+                        val errorMessage =
+                            response.errorBody()?.string()
+                                ?: "Tidak ada detail error"
+
+                        android.app.AlertDialog.Builder(
+                            this@RegisterActivity
+                        )
+                            .setTitle(
+                                "Registrasi gagal ${response.code()}"
+                            )
+                            .setMessage(errorMessage)
+                            .setPositiveButton("OK", null)
+                            .show()
+                    }
+
+                } catch (e: Exception) {
+
+                    android.app.AlertDialog.Builder(
+                        this@RegisterActivity
+                    )
+                        .setTitle("Terjadi Kesalahan")
+                        .setMessage(
+                            e.message ?: "Tidak diketahui"
+                        )
+                        .setPositiveButton("OK", null)
+                        .show()
+                }
+            }
         }
     }
 }
